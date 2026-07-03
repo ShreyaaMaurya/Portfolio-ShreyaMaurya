@@ -3,304 +3,1310 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <title>My Portfolio</title>
-    <script type="module" crossorigin src="/assets/index-DqjPSvt1.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-CoHWs0ei.css">
+    <script type="module" crossorigin src="/assets/index-hos8dmBM.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index--QMLBZaW.css">
   </head>
+  <style>
+    @keyframes marquee-left {
+      0% {
+        transform: translateX(0%);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    @keyframes marquee-right {
+      0% {
+        transform: translateX(-50%);
+      }
+
+      100% {
+        transform: translateX(0%);
+      }
+    }
+
+    .animate-marquee-left {
+      display: flex;
+      width: -moz-max-content;
+      width: max-content;
+      animation: marquee-left 25s linear infinite;
+    }
+
+    .animate-marquee-right {
+      display: flex;
+      width: -moz-max-content;
+      width: max-content;
+      animation: marquee-right 25s linear infinite;
+    }
+
+    .skills-card-glow {
+      position: relative;
+    }
+
+    .skills-card-glow::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 1rem;
+      padding: 1px;
+      background: linear-gradient(
+        to bottom right,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.02)
+      );
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+  </style>
+
   <body class="bg-[#090514] text-white overflow-x-hidden antialiased">
-    <!-- --- STORYTELLER DRAWER OVERLAY (Preserved) --- -->
+    <!-- --- STORYTELLER DRAWER OVERLAY (Enhanced) --- -->
     <div
       id="story-drawer"
-      class="fixed inset-0 z-50 w-full h-screen bg-black transition-transform duration-1000 ease-in-out transform translate-y-0"
+      class="fixed inset-0 z-50 w-full h-screen bg-black transition-transform duration-1000 ease-in-out transform translate-y-0 select-none overflow-hidden"
     >
+      <!-- Background Video -->
       <video
         id="story-video"
-        class="w-full h-full object-cover"
+        class="w-full h-full object-cover opacity-80"
         autoplay
         muted
         playsinline
         preload="auto"
       >
-        <source src="/assets/intro-DaVkfsNU.mp4" type="video/mp4" />
+        <source src="/intro.mp4" type="video/mp4" />
       </video>
 
-      <button
-        id="unmute-btn"
-        type="button"
-        class="absolute bottom-6 right-6 px-4 py-2 rounded-lg bg-black/60 border border-white/30 text-white text-sm font-semibold backdrop-blur-sm hover:bg-black/80 transition"
+      <!-- Premium Cinematic Typography Layer -->
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/50 flex flex-col justify-between p-8 md:p-16 pointer-events-none"
       >
-        Approve sound
-      </button>
+        <!-- Top Indicator -->
+
+        <!-- Main Identity Centerpiece -->
+        <div class="max-w-4xl space-y-4 md:space-y-6 my-auto">
+          <h1
+            class="text-5xl md:text-8xl font-black tracking-tight text-white uppercase font-sans drop-shadow-2xl"
+          >
+            Shreya
+            <span
+              class="bg-gradient-to-r from-teal-300 via-cyan-400 to-emerald-400 bg-clip-text text-transparent"
+              >Maurya</span
+            >
+          </h1>
+
+          <div
+            class="h-[2px] w-24 bg-gradient-to-r from-teal-400 to-transparent"
+          ></div>
+
+          <h2
+            class="text-xl md:text-3xl font-mono tracking-[0.15em] text-slate-200 font-medium uppercase"
+          >
+            Full Stack Developer // AI Engineer
+          </h2>
+
+          <p
+            class="text-sm md:text-base font-sans text-slate-400 max-w-xl leading-relaxed tracking-wide drop-shadow-md"
+          >
+            Full-stack developer specializing in MERN stack, Django, RESTful
+            APIs, and AI/LLM-powered application development. I build clean,
+            scalable products with a strong focus on performance and user
+            experience.
+          </p>
+        </div>
+
+        <!-- Bottom Metadata Details -->
+        <div
+          class="flex flex-wrap gap-x-8 gap-y-2 font-mono text-[10px] tracking-widest text-slate-500 uppercase"
+        >
+          <div>Loc: Lucknow, India</div>
+          <div>Focus: Full-Stack Web</div>
+        </div>
+      </div>
+
+      <!-- Interactive Controls Layer -->
+      <div class="absolute bottom-6 right-6 flex items-center gap-4 z-50">
+        <button
+          id="unmute-btn"
+          type="button"
+          class="px-5 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white text-xs font-mono font-bold tracking-wider uppercase backdrop-blur-md hover:bg-white/20 transition-all active:scale-95 shadow-xl cursor-pointer"
+        >
+          Approve Sound
+        </button>
+      </div>
     </div>
 
-    <!-- --- NAVIGATION HEADER --- -->
-    <header class="fixed top-0 left-0 right-0 z-40 w-full backdrop-blur-md bg-black/10 border-b border-white/5 px-6 py-4 md:px-12 flex justify-between items-center">
-      <div class="text-xl font-black tracking-tight text-white">
-        Anurag<span class="text-cyan-400">.dev</span>
-      </div>
-      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-white/70">
-        <a href="#home" class="hover:text-white transition-colors duration-200">HOME</a>
-        <a href="#skills" class="hover:text-white transition-colors duration-200">SKILLS</a>
-        <a href="#work" class="hover:text-white transition-colors duration-200">WORK</a>
-        <a href="#credentials" class="hover:text-white transition-colors duration-200">EDUCATION</a>
-        <a href="#contact" class="hover:text-white transition-colors duration-200">CONTACT</a>
-      </nav>
-      <a href="#contact" class="px-5 py-2 rounded-full border border-white/10 bg-white/5 text-sm font-semibold hover:bg-white/10 transition-all duration-200">
-        Say Hello
-      </a>
-    </header>
-
-    <!-- --- MAIN CONTENT CONTAINER --- -->
-    <div class="relative min-h-screen bg-[#090514] overflow-hidden">
-      <!-- Glowing Background blobs -->
-      <div class="absolute -top-40 -left-40 w-96 h-96 bg-purple-600/15 rounded-full blur-[128px] animate-pulse-glow"></div>
-      <div class="absolute top-1/3 -right-20 w-80 h-80 bg-cyan-500/10 rounded-full blur-[96px] animate-pulse-glow" style="animation-delay: -3s;"></div>
-      <div class="absolute bottom-10 left-1/3 w-[500px] h-[500px] bg-fuchsia-600/10 rounded-full blur-[160px] animate-pulse-glow" style="animation-delay: -6s;"></div>
-
-      <!-- --- HERO SECTION --- -->
-      <section
-        id="home"
-        class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center min-h-screen pt-28 pb-16 px-6 md:px-12 lg:px-20 max-w-7xl mx-auto"
+    <!-- --- FLOATING GLASSM_ NAVBAR --- -->
+    <header
+      class="fixed top-0 left-0 w-full z-40 px-6 py-6 md:px-16 flex justify-between items-center mix-blend-difference"
+    >
+      <!-- Logo / Identity -->
+      <a
+        href="#"
+        class="group flex items-center gap-2 font-mono text-xs tracking-[0.2em] text-white uppercase"
       >
-        <div class="lg:col-span-7 space-y-6 text-left">
-          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-card text-xs font-semibold uppercase tracking-[0.2em] text-cyan-400">
-            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-            Open to opportunities
-          </div>
+        <span
+          class="w-1.5 h-1.5 rounded-full bg-teal-400 transition-transform duration-300 group-hover:scale-150"
+        ></span>
+        Shreya M.
+      </a>
 
-          <div class="space-y-3">
-            <h1 class="text-5xl sm:text-6xl md:text-7xl font-black tracking-tight leading-tight">
-              Hi, I'm <span class="relative inline-block text-white">Anurag<span class="absolute bottom-1 left-0 w-full h-1.5 bg-gradient-to-r from-cyan-400 to-purple-600 rounded"></span></span>
+      <!-- Floating Navigation -->
+      <nav
+        class="hidden md:flex items-center gap-1 px-2 py-1.5 rounded-full bg-white/[0.02] border border-white/5 backdrop-blur-md shadow-2xl"
+      >
+        <a
+          href="#hero-profile"
+          class="px-4 py-1.5 text-[11px] font-mono tracking-widest text-teal-400 uppercase rounded-full bg-white/5 transition-all"
+        >
+          // Index
+        </a>
+        <a
+          href="#about"
+          class="px-4 py-1.5 text-[11px] font-mono tracking-widest text-slate-400 uppercase rounded-full hover:text-white hover:bg-white/[0.03] transition-all"
+        >
+          About
+        </a>
+        <a
+          href="#work"
+          class="px-4 py-1.5 text-[11px] font-mono tracking-widest text-slate-400 uppercase rounded-full hover:text-white hover:bg-white/[0.03] transition-all"
+        >
+          Work
+        </a>
+        <a
+          href="#contact"
+          class="px-4 py-1.5 text-[11px] font-mono tracking-widest text-slate-400 uppercase rounded-full hover:text-white hover:bg-white/[0.03] transition-all"
+        >
+          Contact
+        </a>
+      </nav>
+
+      <!-- Right Utility -->
+      <div class="flex items-center gap-4">
+        <a
+          href="/Shreya - Full Stack Developer.pdf"
+          target="_blank"
+          class="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 font-mono text-[10px] tracking-widest text-slate-300 uppercase hover:bg-white hover:text-black transition-all duration-300 active:scale-95"
+        >
+          Resume
+        </a>
+      </div>
+    </header>
+    <!-- --- MINIMAL PROFILE HERO SECTION --- -->
+    <!-- --- FULL IMMERSIVE HERO SECTION WITH DOUBLE MARQUEE --- -->
+    <section
+      id="hero-profile"
+      class="relative min-h-screen w-full px-6 pt-32 pb-16 md:px-16 flex flex-col justify-between bg-[#090514] overflow-hidden"
+    >
+      <!-- Smooth Ambient Radial Glow for Depth -->
+      <div
+        class="absolute top-1/3 right-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-purple-600/10 via-indigo-500/10 to-teal-400/5 rounded-full blur-[140px] pointer-events-none"
+      ></div>
+
+      <!-- MAIN WRAPPER: Generous padding and spacing so it doesn't look compressed -->
+      <div
+        class="max-w-5xl mx-auto w-full flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12 relative z-10 my-auto"
+      >
+        <!-- LEFT: Circular Avatar Container -->
+        <div class="flex-shrink-0">
+          <div
+            class="w-24 h-24 md:w-36 md:h-36 rounded-full overflow-hidden border-2 border-white/10 bg-gradient-to-b from-slate-800 to-slate-950 p-1 shadow-2xl"
+          >
+            <img
+              src="/bitmoji.png"
+              alt="Shreya Maurya"
+              class="w-full h-full object-cover rounded-full bg-[#130f22]"
+            />
+          </div>
+        </div>
+
+        <!-- RIGHT: Content Presentation Area -->
+        <div class="space-y-6 max-w-2xl">
+          <div class="space-y-2">
+            <h1
+              class="text-4xl md:text-7xl font-bold tracking-tight text-white font-sans leading-none"
+            >
+              Hey, I'm
+              <span
+                class="bg-gradient-to-r from-teal-300 via-cyan-400 to-purple-400 bg-clip-text text-transparent"
+                >Shreya</span
+              >
+              ✨ <br />
+              <span
+                class="text-slate-300 text-3xl md:text-5xl font-medium block mt-2"
+                >A Full Stack Developer</span
+              >
             </h1>
-            <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-none">
-              <span class="bg-gradient-to-r from-cyan-400 via-purple-400 to-fuchsia-500 bg-clip-text text-transparent text-glow">
-                Front-End Developer.
-              </span>
-            </h2>
           </div>
 
-          <p class="text-base md:text-lg leading-relaxed text-white/70 max-w-xl">
-            A self-taught front-end developer with over 2 months of experience, I build responsive and user-friendly websites & apps. I focus on clean code and efficient design, ensuring seamless interactions that align with both user expectations and business objectives.
+          <p
+            class="text-base md:text-lg text-slate-400 font-sans leading-relaxed tracking-wide"
+          >
+            A
+            <strong class="text-white font-semibold"
+              >fullstack developer</strong
+            >
+            with solid foundations in building scalable architectures.
+            Passionate about crafting seamless user experiences, I thrive at the
+            intersection of clean code and functional design.
           </p>
 
-          <div class="flex flex-wrap gap-4 pt-4">
+          <!-- Action Elements Row -->
+          <div class="flex flex-wrap items-center gap-4 pt-2 md:gap-6">
             <a
               href="#contact"
-              class="px-8 py-4 rounded-full bg-gradient-to-r from-cyan-400 to-purple-600 font-bold text-white shadow-[0_0_30px_rgba(6,182,212,0.3)] hover:shadow-[0_0_40px_rgba(168,85,247,0.5)] transition-all duration-300 hover:scale-[1.03]"
+              class="px-5 py-2.5 rounded-xl bg-white text-black font-sans text-sm font-medium hover:bg-slate-200 transition-all active:scale-95 flex items-center gap-2 shadow-lg shadow-white/5"
             >
-              Contact
+              <span>@</span> Contact Me
             </a>
+
             <a
               href="#work"
-              class="px-8 py-4 rounded-full border border-white/10 bg-white/5 font-semibold text-white backdrop-blur hover:bg-white/10 transition-all duration-300"
+              class="px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white font-sans text-sm font-medium hover:bg-white/10 transition-all active:scale-95 flex items-center gap-2"
             >
-              View Work
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                h="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-folder-git-2"
+              >
+                <path
+                  d="M9 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v2"
+                />
+                <circle cx="13" cy="12" r="2" />
+                <path d="M18 19c-2 0-3-1-3-3v-2" />
+                <circle cx="18" cy="19" r="2" />
+                <path d="M14 14h3" />
+              </svg>
+              View Projects
+            </a>
+
+            <div class="hidden sm:block h-6 w-[1px] bg-white/10 mx-1"></div>
+
+            <div class="flex items-center gap-4 text-slate-400">
+              <a
+                href="https://github.com/ShreyaaMaurya"
+                target="_blank"
+                class="hover:text-white transition-colors"
+                title="GitHub"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  h="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
+                  />
+                  <path d="M9 18c-4.51 2-5-2-7-2" />
+                </svg>
+              </a>
+              <a
+                href="https://linkedin.com/in/shreya-maurya"
+                target="_blank"
+                class="hover:text-white transition-colors"
+                title="LinkedIn"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  h="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                  />
+                  <rect width="4" h="12" x="2" y="9" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </a>
+              <a
+                href="/Shreya - Full Stack Developer.pdf"
+                target="_blank"
+                class="hover:text-white transition-colors"
+                title="Resume PDF"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  h="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"
+                  />
+                  <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                  <path d="M10 9H8" />
+                  <path d="M16 13H8" />
+                  <path d="M16 17H8" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- --- BOTTOM SECTION: INTERACTIVE DOUBLE MARQUEE --- -->
+      <!-- Eliminates the empty black void cleanly with endless loops -->
+      <div class="w-full space-y-4 pt-12 relative z-10">
+        <!-- TRACK 1: Left to Right Marquee -->
+        <div
+          class="w-full overflow-hidden mask-gradient-edges pointer-events-none"
+        >
+          <div class="animate-marquee-right gap-4 whitespace-nowrap">
+            <!-- Loop Item Duplications for Seamlessness -->
+            <div class="flex gap-4">
+              <span
+                class="px-6 py-2 rounded-xl bg-white/[0.02] border border-white/5 font-mono text-xs uppercase tracking-wider text-slate-400"
+                >⚡ AuthX System Deployed</span
+              >
+              <span
+                class="px-6 py-2 rounded-xl bg-white/[0.02] border border-white/5 font-mono text-xs uppercase tracking-wider text-slate-400"
+                >✨ MERN Stack & Python Architecture</span
+              >
+              <span
+                class="px-6 py-2 rounded-xl bg-white/[0.02] border border-white/5 font-mono text-xs uppercase tracking-wider text-slate-400"
+                >🤖 Claude LLM Orchestration Layer</span
+              >
+              <span
+                class="px-6 py-2 rounded-xl bg-white/[0.02] border border-white/5 font-mono text-xs uppercase tracking-wider text-slate-400"
+                >🔥 Eternal Flame Platform Ecosystem</span
+              >
+            </div>
+            <div class="flex gap-4" aria-hidden="true">
+              <span
+                class="px-6 py-2 rounded-xl bg-white/[0.02] border border-white/5 font-mono text-xs uppercase tracking-wider text-slate-400"
+                >⚡ AuthX System Deployed</span
+              >
+              <span
+                class="px-6 py-2 rounded-xl bg-white/[0.02] border border-white/5 font-mono text-xs uppercase tracking-wider text-slate-400"
+                >✨ MERN Stack & Python Architecture</span
+              >
+              <span
+                class="px-6 py-2 rounded-xl bg-white/[0.02] border border-white/5 font-mono text-xs uppercase tracking-wider text-slate-400"
+                >🤖 Claude LLM Orchestration Layer</span
+              >
+              <span
+                class="px-6 py-2 rounded-xl bg-white/[0.02] border border-white/5 font-mono text-xs uppercase tracking-wider text-slate-400"
+                >🔥 Eternal Flame Platform Ecosystem</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- TRACK 2: Right to Left Marquee -->
+        <div
+          class="w-full overflow-hidden mask-gradient-edges pointer-events-none"
+        >
+          <div class="animate-marquee-left gap-4 whitespace-nowrap">
+            <div class="flex gap-4">
+              <span
+                class="px-6 py-2 rounded-xl bg-gradient-to-r from-purple-500/5 to-transparent border border-white/5 font-mono text-xs uppercase tracking-wider text-purple-300"
+                >Clean Code Architecture</span
+              >
+              <span
+                class="px-6 py-2 rounded-xl bg-gradient-to-r from-teal-500/5 to-transparent border border-white/5 font-mono text-xs uppercase tracking-wider text-teal-300"
+                >Asymmetric Grid Layouts</span
+              >
+              <span
+                class="px-6 py-2 rounded-xl bg-gradient-to-r from-cyan-500/5 to-transparent border border-white/5 font-mono text-xs uppercase tracking-wider text-cyan-300"
+                >Low-Latency API Design</span
+              >
+              <span
+                class="px-6 py-2 rounded-xl bg-gradient-to-r from-indigo-500/5 to-transparent border border-white/5 font-mono text-xs uppercase tracking-wider text-indigo-300"
+                >Responsive UI Frameworks</span
+              >
+            </div>
+            <div class="flex gap-4" aria-hidden="true">
+              <span
+                class="px-6 py-2 rounded-xl bg-gradient-to-r from-purple-500/5 to-transparent border border-white/5 font-mono text-xs uppercase tracking-wider text-purple-300"
+                >Clean Code Architecture</span
+              >
+              <span
+                class="px-6 py-2 rounded-xl bg-gradient-to-r from-teal-500/5 to-transparent border border-white/5 font-mono text-xs uppercase tracking-wider text-teal-300"
+                >Asymmetric Grid Layouts</span
+              >
+              <span
+                class="px-6 py-2 rounded-xl bg-gradient-to-r from-cyan-500/5 to-transparent border border-white/5 font-mono text-xs uppercase tracking-wider text-cyan-300"
+                >Low-Latency API Design</span
+              >
+              <span
+                class="px-6 py-2 rounded-xl bg-gradient-to-r from-indigo-500/5 to-transparent border border-white/5 font-mono text-xs uppercase tracking-wider text-indigo-300"
+                >Responsive UI Frameworks</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- --- SKILLS SECTION WITH THREE.JS CAROUSEL --- -->
+    <section
+      id="about"
+      class="relative min-h-screen w-full px-6 py-24 md:px-16 flex flex-col justify-center bg-[#090514] overflow-hidden"
+    >
+      <!-- Dynamic Ambient Glow that transitions colors -->
+      <div
+        id="skills-bg-glow"
+        class="absolute top-1/2 right-1/4 -translate-y-1/2 w-[550px] h-[550px] md:w-[750px] md:h-[750px] rounded-full blur-[140px] opacity-20 pointer-events-none transition-all duration-1000 ease-in-out bg-yellow-500/30"
+      ></div>
+
+      <div
+        class="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center relative z-10"
+      >
+        <!-- Left: Section Headings and Actions -->
+        <div class="lg:col-span-5 space-y-8 flex flex-col justify-center">
+          <div class="space-y-4 max-w-xl">
+            <div class="flex items-center gap-3">
+              <span
+                class="font-mono text-xs text-cyan-400 uppercase tracking-[0.2em]"
+                >// Capability Matrix</span
+              >
+              <div class="h-[1px] w-12 bg-cyan-400/30"></div>
+            </div>
+            <h2
+              class="text-4xl md:text-6xl font-black tracking-tight text-white uppercase font-sans"
+            >
+              My Skills
+            </h2>
+            <p
+              class="text-sm md:text-base text-slate-400 font-sans leading-relaxed tracking-wide"
+            >
+              I build frontend, backend, database, cloud, and AI/LLM systems
+              using React, Node.js, Express.js, Django, MongoDB, and modern
+              deployment tools. Tap a skill chip to focus the 3D model and see
+              the category switch in real time.
+            </p>
+          </div>
+
+          <div
+            class="rounded-3xl border border-white/5 bg-white/[0.02] backdrop-blur-md p-4 md:p-5 shadow-2xl shadow-black/20"
+          >
+            <div
+              class="flex items-center justify-between gap-4 mb-4 font-mono text-[10px] uppercase tracking-[0.22em] text-slate-500"
+            >
+              <span>tap a skill</span>
+              <span id="skills-active-count" class="text-slate-300"
+                >01 / 07</span
+              >
+            </div>
+            <div id="skills-chip-rail" class="flex flex-wrap gap-3"></div>
+          </div>
+
+          <div
+            class="grid grid-cols-3 gap-3 text-[10px] font-mono uppercase tracking-[0.18em] text-slate-400"
+          >
+            <div
+              class="rounded-2xl border border-white/5 bg-white/[0.02] px-4 py-3"
+            >
+              7 skills
+            </div>
+            <div
+              class="rounded-2xl border border-white/5 bg-white/[0.02] px-4 py-3"
+            >
+              3 domains
+            </div>
+            <div
+              class="rounded-2xl border border-white/5 bg-white/[0.02] px-4 py-3"
+            >
+              tap to focus
+            </div>
+          </div>
+
+          <!-- Action Elements Row -->
+          <div class="flex flex-wrap items-center gap-6 pt-2">
+            <a
+              id="skills-action-btn"
+              href="#contact"
+              class="skill-transition px-8 py-3 rounded-full bg-yellow-500 text-black font-sans text-xs font-bold tracking-widest uppercase hover:scale-105 active:scale-95 transition-all duration-300 shadow-[0_0_30px_rgba(234,179,8,0.25)]"
+            >
+              contact me
+            </a>
+
+            <a
+              href="#work"
+              class="flex items-center gap-2 group font-mono text-[11px] tracking-widest text-slate-400 hover:text-white transition-all duration-300"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="transform translate-x-0 group-hover:translate-x-1.5 transition-transform duration-300"
+              >
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+              SEE MORE
             </a>
           </div>
         </div>
 
-        <div class="lg:col-span-5 flex justify-center">
-          <div class="relative w-full max-w-[400px] aspect-[4/5] rounded-[2.5rem] p-4 glass-card glass-card-hover overflow-hidden animate-float">
-            <!-- Backdrop Glow -->
-            <div class="absolute inset-0 bg-gradient-to-tr from-cyan-500/20 via-purple-600/30 to-fuchsia-500/20 z-0"></div>
-
-            <!-- Three.js Interactive Helix Canvas -->
-            <canvas id="canvas-hero" class="absolute inset-0 w-full h-full z-10 opacity-80 mix-blend-screen"></canvas>
-
-            <!-- Portrait Image -->
-            <img
-              src="/assets/developer_portrait-AKfeC7e7.png"
-              alt="Anurag"
-              class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[92%] h-[90%] object-cover object-bottom rounded-[2rem] z-20 pointer-events-none drop-shadow-[0_20px_45px_rgba(0,0,0,0.85)]"
-            />
-
-            <!-- Glass Hover Tag -->
-            <div class="absolute bottom-6 left-6 right-6 p-4 rounded-2xl border border-white/10 bg-black/50 backdrop-blur-md z-30">
-              <div class="text-[9px] uppercase tracking-[0.3em] text-cyan-400 font-black mb-1">Interactive 3D WebGL</div>
-              <div class="text-xs font-semibold text-white/90">Hover to spin the helix</div>
+        <!-- Right: Three.js Interactive Skills Canvas -->
+        <div
+          class="lg:col-span-7 flex flex-col items-center justify-center relative"
+        >
+          <div
+            id="skills-3d-wrapper"
+            class="w-full h-[560px] md:h-[700px] relative flex flex-col justify-between items-center rounded-[2rem] border border-white/5 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.05),rgba(255,255,255,0.02)_40%,rgba(8,6,20,0.92)_100%)] backdrop-blur-xl shadow-[0_30px_80px_-25px_rgba(0,0,0,0.85)] p-3 md:p-4 overflow-hidden"
+          >
+            <div
+              class="absolute inset-0 pointer-events-none opacity-[0.35] bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:36px_36px]"
+            ></div>
+            <div
+              class="w-full flex items-center justify-between px-1 md:px-2 pb-3 font-mono text-[10px] uppercase tracking-[0.22em] text-slate-500"
+            >
+              <span>interactive orbit</span>
+              <span class="text-slate-300">hover the ring or click a chip</span>
             </div>
-          </div>
-        </div>
-      </section>
+            <!-- 3D Canvas element -->
+            <canvas
+              id="canvas-skills-interactive"
+              class="w-full h-[76%] block cursor-grab active:cursor-grabbing rounded-[1.75rem] bg-black/20 border border-white/5"
+            ></canvas>
 
-      <!-- --- SKILLS SECTION --- -->
-      <section
-        id="skills"
-        class="py-24 px-6 md:px-12 lg:px-20 max-w-7xl mx-auto border-t border-white/5"
-      >
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div class="lg:col-span-7 space-y-6 text-left">
-            <div class="text-sm font-bold uppercase tracking-[0.25em] text-purple-400">
-              Technical Stack
-            </div>
-            <h2 class="text-4xl md:text-5xl font-black tracking-tight leading-tight">
-              An Orbiting Ecosystem of Modern Technologies
-            </h2>
-            <p class="text-base md:text-lg text-white/70 max-w-xl">
-              I leverage a modular stack to engineer performant, responsive web apps. With standard-compliant layouts, smooth UI flows, and hardware-accelerated animations, I transform complex requirements into clean frontend architecture.
-            </p>
-            
-            <div class="flex flex-wrap gap-3 pt-2">
-              <span class="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-sm font-semibold hover:border-cyan-400/50 hover:bg-cyan-500/5 transition">HTML5 / CSS3</span>
-              <span class="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-sm font-semibold hover:border-purple-400/50 hover:bg-purple-500/5 transition">JavaScript (ES6+)</span>
-              <span class="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-sm font-semibold hover:border-fuchsia-400/50 hover:bg-fuchsia-500/5 transition">TailwindCSS</span>
-              <span class="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-sm font-semibold hover:border-cyan-400/50 hover:bg-cyan-500/5 transition">Vite</span>
-              <span class="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-sm font-semibold hover:border-purple-400/50 hover:bg-purple-500/5 transition">Three.js (WebGL)</span>
-              <span class="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-sm font-semibold hover:border-fuchsia-400/50 hover:bg-fuchsia-500/5 transition">Git & GitHub</span>
-            </div>
-          </div>
-
-          <div class="lg:col-span-5 flex justify-center">
-            <div class="relative w-full max-w-[360px] aspect-square rounded-[2rem] glass-card glass-card-hover p-4 flex items-center justify-center overflow-hidden">
-              <div class="absolute inset-0 bg-gradient-to-tr from-purple-500/10 to-transparent z-0"></div>
-              <canvas id="canvas-skills" class="w-full h-full z-10 relative"></canvas>
-              <div class="absolute bottom-4 text-[10px] tracking-[0.2em] uppercase text-white/40 font-bold z-20">Orbit Visualizer</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- --- WORK / PROJECTS SECTION --- -->
-      <section
-        id="work"
-        class="py-24 px-6 md:px-12 lg:px-20 max-w-7xl mx-auto border-t border-white/5"
-      >
-        <div class="text-center space-y-4 mb-16">
-          <div class="text-sm font-bold uppercase tracking-[0.25em] text-cyan-400">
-            Featured Projects
-          </div>
-          <h2 class="text-4xl md:text-5xl font-black tracking-tight">
-            Innovative Interactive Work
-          </h2>
-          <p class="text-base text-white/60 max-w-xl mx-auto">
-            Combining creative frontend engineering with robust 3D interactive visualizations.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <!-- Card 1: AuthX Cyber Scanner -->
-          <div class="group rounded-[2rem] border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 p-8 space-y-6 flex flex-col justify-between">
-            <div class="space-y-4">
-              <div class="relative w-full aspect-video rounded-2xl glass-card flex items-center justify-center overflow-hidden">
-                <canvas id="canvas-authx" class="w-full h-full relative z-10"></canvas>
-                <div class="absolute top-4 left-4 px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-400/30 text-[10px] text-cyan-400 font-bold tracking-wider uppercase z-20">3D WebGL Scanner</div>
-              </div>
-              <h3 class="text-2xl font-bold">AuthX Cyber Scanner Suite</h3>
-              <p class="text-white/70 leading-relaxed text-sm">
-                A high-fidelity cybersecurity monitoring interface featuring real-time interactive coordinate scanning lasers and data visualization sweeps designed with custom shaders.
+            <!-- Active Skill details overlay (aligned perfectly in the center-bottom under the active model) -->
+            <div
+              id="skills-text-overlay"
+              class="w-full text-center px-4 flex flex-col items-center justify-center h-[24%] transition-all duration-500 transform opacity-100 translate-y-0 rounded-[1.5rem] border border-white/[0.04] bg-black/25 backdrop-blur-md"
+            >
+              <h3
+                id="active-skill-name"
+                class="text-2xl md:text-4xl font-extrabold tracking-wider text-white font-sans skills-text-shadow"
+              >
+                JavaScript
+              </h3>
+              <p
+                id="active-skill-description"
+                class="text-xs md:text-sm text-slate-400 font-sans leading-relaxed tracking-wide max-w-lg mt-1.5"
+              >
+                Supercharging web applications with modern ES6+ features,
+                asynchronous programming, and clean, modular architecture.
               </p>
-            </div>
-            <div class="flex items-center justify-between pt-4 border-t border-white/5">
-              <span class="text-xs text-white/40 font-mono">React / Three.js / WebGL</span>
-              <a href="#" class="text-sm text-cyan-400 hover:text-white transition-colors duration-200 flex items-center gap-1">
-                Explore Demo <span>&rarr;</span>
-              </a>
-            </div>
-          </div>
-
-          <!-- Card 2: AI Voice Chatbot Wave -->
-          <div class="group rounded-[2rem] border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 p-8 space-y-6 flex flex-col justify-between">
-            <div class="space-y-4">
-              <div class="relative w-full aspect-video rounded-2xl glass-card flex items-center justify-center overflow-hidden">
-                <canvas id="canvas-chatbot" class="w-full h-full relative z-10"></canvas>
-                <div class="absolute top-4 left-4 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-[10px] text-emerald-400 font-bold tracking-wider uppercase z-20">Reactive Soundwave</div>
+              <div
+                class="mt-3 flex flex-wrap justify-center gap-2 text-[10px] font-mono uppercase tracking-[0.18em] text-slate-500"
+              >
+                <span
+                  class="px-3 py-1 rounded-full border border-white/8 bg-white/[0.03]"
+                  >interactive 3d</span
+                >
+                <span
+                  class="px-3 py-1 rounded-full border border-white/8 bg-white/[0.03]"
+                  >hover + tap</span
+                >
+                <span
+                  class="px-3 py-1 rounded-full border border-white/8 bg-white/[0.03]"
+                  >dynamic theme</span
+                >
               </div>
-              <h3 class="text-2xl font-bold">AI Soundwave Chatbot</h3>
-              <p class="text-white/70 leading-relaxed text-sm">
-                An interactive voice chatbot integration visualizer featuring dynamic soundwaves that scale and color-shift responsively according to streaming audio volume levels and user interactions.
-              </p>
-            </div>
-            <div class="flex items-center justify-between pt-4 border-t border-white/5">
-              <span class="text-xs text-white/40 font-mono">Vite / HTML5 Audio / Three.js</span>
-              <a href="#" class="text-sm text-emerald-400 hover:text-white transition-colors duration-200 flex items-center gap-1">
-                Explore Demo <span>&rarr;</span>
-              </a>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- --- EDUCATION / CREDENTIALS SECTION --- -->
-      <section
-        id="credentials"
-        class="py-24 px-6 md:px-12 lg:px-20 max-w-7xl mx-auto border-t border-white/5"
+  <section
+  id="work"
+  class="relative w-full bg-[#090514]"
+  style="height: 350vh"
+>
+  <div 
+    id="threejs-projects-data" 
+    class="hidden"
+    data-projects='[
+      {
+        "title": "AuthX Scanner",
+        "description": "An advanced web security scanning platform featuring low-latency vulnerability detection engines.",
+        "tags": ["MERN", "Security"],
+        "image": "assets/images/authx-scanner.jpg",
+        "link": "https://github.com/ShreyaaMaurya"
+      },
+      {
+        "title": "Project Two",
+        "description": "A deep learning model optimized for real-time object tracking in resource-constrained systems.",
+        "tags": ["Python", "AI"],
+        "image": "assets/images/project-two.jpg",
+        "link": "https://github.com/ShreyaaMaurya"
+      }
+    ]'
+  ></div>
+
+  <div
+    class="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between py-12 md:py-16"
+  >
+    <div
+      id="projects-bg-glow"
+      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] md:w-[800px] md:h-[800px] rounded-full blur-[160px] opacity-15 pointer-events-none transition-all duration-1000 ease-in-out bg-teal-500/30"
+    ></div>
+
+    <div
+      class="w-full px-6 md:px-16 flex justify-between items-start z-20 pointer-events-none"
+    >
+      <div class="space-y-2 max-w-xl">
+        <span class="font-mono text-xs text-teal-400 uppercase tracking-[0.2em]">Selected Works</span>
+        <h2 class="text-4xl md:text-6xl font-black tracking-tight text-white uppercase font-sans">Projects</h2>
+      </div>
+      
+      <div class="hidden md:flex flex-col items-end font-mono text-[10px] text-slate-500 tracking-widest uppercase mt-4">
+        <span>Scroll to explore</span>
+        <div class="w-12 h-[1px] bg-slate-700 mt-2 relative overflow-hidden">
+          <div
+            id="project-scroll-bar"
+            class="absolute left-0 top-0 h-full bg-teal-400 transition-all duration-200"
+            style="width: 0%"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-full flex-grow relative flex items-center justify-center min-h-0 z-10">
+      <canvas
+        id="canvas-projects-3d"
+        class="w-full h-full block cursor-grab active:cursor-grabbing"
+      ></canvas>
+    </div>
+
+    <div class="w-full px-6 md:px-16 flex flex-col md:flex-row justify-between items-center md:items-end gap-6 z-20 pointer-events-none">
+      <div
+        id="project-info-panel"
+        class="text-center md:text-left space-y-3 max-w-lg transition-all duration-500 transform opacity-100 translate-y-0"
       >
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div class="lg:col-span-5 flex justify-center order-last lg:order-first">
-            <div class="relative w-full max-w-[360px] aspect-square rounded-[2rem] glass-card glass-card-hover p-4 flex items-center justify-center overflow-hidden">
-              <div class="absolute inset-0 bg-gradient-to-tr from-amber-500/10 to-transparent z-0"></div>
-              <canvas id="canvas-credentials" class="w-full h-full z-10 relative"></canvas>
-              <div class="absolute bottom-4 text-[10px] tracking-[0.2em] uppercase text-white/40 font-bold z-20">Torus Visualizer</div>
+        <div id="project-tags-container" class="flex flex-wrap gap-2 justify-center md:justify-start">
+          <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 font-mono text-[9px] text-teal-300 tracking-wider uppercase">MERN</span>
+          <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 font-mono text-[9px] text-teal-300 tracking-wider uppercase">Security</span>
+        </div>
+        <h3 id="project-title" class="text-3xl md:text-4xl font-extrabold tracking-tight text-white font-sans uppercase">
+          AuthX Scanner
+        </h3>
+        <p id="project-description" class="text-xs md:text-sm text-slate-400 font-sans leading-relaxed tracking-wide">
+          An advanced web security scanning platform featuring low-latency vulnerability detection engines and automated vulnerability analysis.
+        </p>
+      </div>
+
+      <div id="project-action-panel" class="pointer-events-auto transition-all duration-500 md:ml-auto md:shrink-0">
+        <a
+          id="project-link-btn"
+          href="https://github.com/ShreyaaMaurya"
+          target="_blank"
+          class="skill-transition inline-flex w-fit shrink-0 whitespace-nowrap px-6 py-3 rounded-full bg-teal-500 text-black font-sans text-[11px] font-bold tracking-widest uppercase hover:scale-105 active:scale-95 transition-all duration-300 shadow-[0_0_30px_rgba(20,184,166,0.25)] items-center gap-2"
+        >
+          <span>View Github</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+    <!-- --- EXPERIENCE SECTION WITH INTERACTIVE TIMELINE --- -->
+    <section
+      id="experience"
+      class="relative min-h-screen w-full px-6 py-24 md:px-16 flex flex-col justify-center bg-[#090514] overflow-hidden"
+    >
+      <!-- Soft Ambient Glow (Warm Amber Accent) -->
+      <div
+        class="absolute top-1/4 right-1/4 -translate-y-1/2 w-[450px] h-[450px] md:w-[650px] md:h-[650px] rounded-full blur-[160px] opacity-10 pointer-events-none bg-amber-500/30"
+      ></div>
+      <div
+        class="absolute bottom-1/4 left-1/4 w-[350px] h-[350px] rounded-full blur-[130px] opacity-5 pointer-events-none bg-white/10"
+      ></div>
+
+      <div
+        class="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start relative z-10"
+      >
+        <!-- Left Column: Focused Header & Status Ledger -->
+        <div
+          class="lg:col-span-4 space-y-8 flex flex-col justify-center lg:sticky lg:top-28"
+        >
+          <div class="space-y-4">
+            <div class="flex items-center gap-3">
+              <span
+                class="font-mono text-xs text-amber-500 uppercase tracking-[0.2em]"
+                >// Career Journey</span
+              >
+              <div class="h-[1px] w-12 bg-amber-500/30"></div>
             </div>
+            <h2
+              class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white uppercase font-sans"
+            >
+              Experience
+            </h2>
+            <p
+              class="text-sm md:text-base text-slate-400 font-sans leading-relaxed tracking-wide max-w-sm"
+            >
+              Hands-on experience building full-stack applications, AI chat
+              interfaces, and secure backend systems across Node.js, Express,
+              Django, MongoDB, and cloud-integrated workflows.
+            </p>
           </div>
 
-          <div class="lg:col-span-7 space-y-6 text-left">
-            <div class="text-sm font-bold uppercase tracking-[0.25em] text-amber-400">
-              Education & Paths
+          <!-- Minimal Status Widget (Replaces the clunky 3D block) -->
+          <div
+            class="border-l-2 border-amber-500/20 pl-4 py-1 space-y-2 max-w-xs"
+          >
+            <div
+              class="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-slate-500"
+            >
+              <span class="relative flex h-2 w-2">
+                <span
+                  class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"
+                ></span>
+                <span
+                  class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"
+                ></span>
+              </span>
+              Current Status
             </div>
-            <h2 class="text-4xl md:text-5xl font-black tracking-tight leading-tight">
-              A Solid Background in Front-End Engineering
-            </h2>
-            <p class="text-base md:text-lg text-white/70 max-w-xl">
-              Focusing on modern reactive applications, performance optimization, and custom interactive 3D visualizations, I spend my time mastering responsive designs and modular layout systems.
+            <p class="text-xs text-slate-300 font-medium">
+              Open to core backend & fullstack development opportunities.
             </p>
-            
-            <div class="space-y-4">
-              <div class="p-5 rounded-2xl border border-white/10 bg-white/5">
-                <div class="flex justify-between items-start">
+          </div>
+        </div>
+
+        <!-- Right Column: Enhanced Vertical Timeline -->
+        <div class="lg:col-span-8 relative pl-2">
+          <!-- Vertical Connecting Line -->
+          <div
+            class="absolute left-6 top-6 bottom-6 w-[1px] bg-gradient-to-b from-amber-500/40 via-slate-800 to-transparent"
+          ></div>
+
+          <!-- Timeline Items Stack -->
+          <div class="space-y-10">
+            <!-- Timeline Item 1 -->
+            <div class="group relative flex items-start">
+              <div
+                class="absolute left-6 -translate-x-1/2 mt-2.5 w-2 h-2 rounded-full bg-slate-800 border border-slate-700 group-hover:bg-amber-500 group-hover:scale-120 group-hover:shadow-[0_0_12px_rgba(245,158,11,0.8)] transition-all duration-300 z-10"
+              ></div>
+
+              <div
+                class="ml-12 w-full p-6 rounded-2xl border border-white/[0.03] bg-white/[0.02] backdrop-blur-md transition-all duration-300 hover:border-amber-500/20 hover:bg-white/[0.04]"
+              >
+                <div
+                  class="flex flex-wrap justify-between items-start gap-2 mb-3"
+                >
                   <div>
-                    <h4 class="font-bold text-white">Self-Taught Front-End Developer</h4>
-                    <p class="text-xs text-white/50">Pathways & Research</p>
+                    <h3
+                      class="text-lg md:text-xl font-bold text-white font-sans tracking-wide group-hover:text-amber-400 transition-colors"
+                    >
+                      Full Stack Developer
+                    </h3>
+                    <span class="text-xs font-mono text-slate-400"
+                      >Niftel Communications</span
+                    >
                   </div>
-                  <span class="px-3 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-[10px] text-amber-400 font-bold">2026</span>
+                  <span
+                    class="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 font-mono text-[10px] text-amber-400 font-semibold tracking-wider"
+                    >Oct 2025 - Present</span
+                  >
                 </div>
-                <p class="mt-2 text-xs text-white/60 leading-relaxed">
-                  Deeply focused on mastering modern frameworks, UI optimization, and creative development libraries like Three.js.
+
+                <p
+                  class="text-xs md:text-sm text-slate-400 leading-relaxed font-sans mb-4"
+                >
+                  Maintained 99% uptime by debugging and sustaining scalable web
+                  architectures, accelerated backend data processing by about
+                  20%, and integrated Anthropic Claude API for AI-assisted
+                  property generation and smarter workflow automation.
+                </p>
+
+                <div class="flex flex-wrap gap-2 pt-1">
+                  <span
+                    class="px-2.5 py-0.5 rounded bg-white/5 border border-white/10 font-mono text-[9px] text-slate-300"
+                    >NODE.JS</span
+                  >
+                  <span
+                    class="px-2.5 py-0.5 rounded bg-white/5 border border-white/10 font-mono text-[9px] text-slate-300"
+                    >EXPRESS</span
+                  >
+                  <span
+                    class="px-2.5 py-0.5 rounded bg-white/5 border border-white/10 font-mono text-[9px] text-slate-300"
+                    >MONGODB</span
+                  >
+                  <span
+                    class="px-2.5 py-0.5 rounded bg-white/5 border border-white/10 font-mono text-[9px] text-slate-300"
+                    >CLAUDE API</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Timeline Item 2 -->
+            <div class="group relative flex items-start">
+              <div
+                class="absolute left-6 -translate-x-1/2 mt-2.5 w-2 h-2 rounded-full bg-slate-800 border border-slate-700 group-hover:bg-amber-500 group-hover:scale-120 group-hover:shadow-[0_0_12px_rgba(245,158,11,0.8)] transition-all duration-300 z-10"
+              ></div>
+
+              <div
+                class="ml-12 w-full p-6 rounded-2xl border border-white/[0.03] bg-white/[0.02] backdrop-blur-md transition-all duration-300 hover:border-amber-500/20 hover:bg-white/[0.04]"
+              >
+                <div
+                  class="flex flex-wrap justify-between items-start gap-2 mb-3"
+                >
+                  <div>
+                    <h3
+                      class="text-lg md:text-xl font-bold text-white font-sans tracking-wide group-hover:text-amber-400 transition-colors"
+                    >
+                      Trainee Intern
+                    </h3>
+                    <span class="text-xs font-mono text-slate-400"
+                      >SRDT</span
+                    >
+                  </div>
+                  <span
+                    class="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 font-mono text-[10px] text-amber-400 font-semibold tracking-wider"
+                    >Sept 2025 / 10 days</span
+                  >
+                </div>
+
+                <p
+                  class="text-xs md:text-sm text-slate-400 leading-relaxed font-sans mb-4"
+                >
+                  Completed intensive Python and Django training, and built a
+                  fully functional web application using Django, SQLite, HTML,
+                  and CSS during the training period.
+                </p>
+
+                <div class="flex flex-wrap gap-2 pt-1">
+                  <span
+                    class="px-2.5 py-0.5 rounded bg-white/5 border border-white/10 font-mono text-[9px] text-slate-300"
+                    >DJANGO</span
+                  >
+                  <span
+                    class="px-2.5 py-0.5 rounded bg-white/5 border border-white/10 font-mono text-[9px] text-slate-300"
+                    >PYTHON</span
+                  >
+                  <span
+                    class="px-2.5 py-0.5 rounded bg-white/5 border border-white/10 font-mono text-[9px] text-slate-300"
+                    >SQLITE</span
+                  >
+                  <span
+                    class="px-2.5 py-0.5 rounded bg-white/5 border border-white/10 font-mono text-[9px] text-slate-300"
+                    >HTML & CSS</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- --- EDUCATION SECTION --- -->
+    <section
+      id="education"
+      class="relative min-h-screen w-full px-6 py-24 md:px-16 flex flex-col justify-center bg-[#070410] overflow-hidden border-t border-white/[0.02]"
+    >
+      <!-- Soft Ambient Glow (Complementary Amber-Purple Tone shift for depth) -->
+      <div
+        class="absolute bottom-1/4 right-1/3 w-[500px] h-[500px] rounded-full blur-[180px] opacity-10 pointer-events-none bg-amber-500/20"
+      ></div>
+      <div
+        class="absolute top-1/4 left-1/4 -translate-y-1/2 w-[400px] h-[400px] rounded-full blur-[140px] opacity-10 pointer-events-none bg-indigo-500/10"
+      ></div>
+
+      <div
+        class="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start relative z-10"
+      >
+        <!-- Left Column: Focused Header & Core Competency Ledger -->
+        <div
+          class="lg:col-span-4 space-y-8 flex flex-col justify-center lg:sticky lg:top-28"
+        >
+          <div class="space-y-4">
+            <div class="flex items-center gap-3">
+              <span
+                class="font-mono text-xs text-amber-500 uppercase tracking-[0.2em]"
+                >// Academic Foundation</span
+              >
+              <div class="h-[1px] w-12 bg-amber-500/30"></div>
+            </div>
+            <h2
+              class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white uppercase font-sans"
+            >
+              Education
+            </h2>
+            <p
+              class="text-sm md:text-base text-slate-400 font-sans leading-relaxed tracking-wide max-w-sm"
+            >
+              Currently pursuing MCA alongside a completed Bachelor of
+              Computer Science degree, with a focus on full-stack engineering,
+              REST APIs, databases, and AI-assisted application development.
+            </p>
+          </div>
+
+          <!-- Academic Focus Metrics -->
+          <div
+            class="border-l-2 border-amber-500/20 pl-4 py-1 space-y-3 max-w-xs font-mono text-[11px] text-slate-500 uppercase tracking-wider"
+          >
+              <div>// Core Focus Areas</div>
+              <ul
+                class="space-y-1.5 text-slate-300 normal-case font-sans text-xs"
+              >
+                <li class="flex items-center gap-2">
+                  <span class="text-amber-500 font-mono">▸</span> MERN Stack
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-amber-500 font-mono">▸</span> Django &
+                  REST APIs
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-amber-500 font-mono">▸</span> AI / LLM &
+                  Cloud
+                </li>
+              </ul>
+          </div>
+        </div>
+
+        <!-- Right Column: Academic Grid Stack -->
+        <div class="lg:col-span-8 space-y-6">
+          <!-- Academic Block 1: Post Graduation -->
+          <div
+            class="group relative p-6 rounded-2xl border border-white/[0.03] bg-white/[0.02] backdrop-blur-md transition-all duration-300 hover:border-amber-500/20 hover:bg-white/[0.04]"
+          >
+            <!-- Corner Glow Accent -->
+            <div
+              class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-amber-500/5 to-transparent rounded-tr-2xl pointer-events-none transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+            ></div>
+
+            <div class="flex flex-wrap justify-between items-start gap-3 mb-4">
+              <div>
+                <div class="flex items-center gap-2 mb-1">
+                  <span
+                    class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 font-mono text-[9px] font-semibold uppercase tracking-wider"
+                    >Master's Degree</span
+                  >
+                </div>
+                <h3
+                  class="text-xl font-bold text-white font-sans tracking-wide group-hover:text-amber-400 transition-colors"
+                >
+                  Master of Computer Applications (MCA)
+                </h3>
+                <p class="text-xs font-mono text-slate-400 mt-0.5">
+                  Shri Ramswaroop Memorial College of Engineering and
+                  Management
                 </p>
               </div>
+              <span
+                class="px-3 py-1 rounded-full bg-white/5 border border-white/10 font-mono text-[10px] text-slate-300 font-medium tracking-wider"
+                >Expected 2026</span
+              >
+            </div>
+
+            <p
+              class="text-xs md:text-sm text-slate-400 leading-relaxed font-sans mb-4"
+            >
+              Specialized in software engineering, application architecture,
+              and modern full-stack systems while strengthening problem solving,
+              database design, and secure deployment workflows.
+            </p>
+
+            <!-- Highlights / Achievements Chips -->
+            <div class="flex flex-wrap gap-2 pt-1">
+              <span
+                class="px-2.5 py-0.5 rounded bg-white/5 border border-white/10 font-mono text-[9px] text-slate-400 group-hover:border-amber-500/10 group-hover:text-slate-300 transition-colors"
+                >FULL-STACK</span
+              >
+              <span
+                class="px-2.5 py-0.5 rounded bg-white/5 border border-white/10 font-mono text-[9px] text-slate-400 group-hover:border-amber-500/10 group-hover:text-slate-300 transition-colors"
+                >DATABASES</span
+              >
+              <span
+                class="px-2.5 py-0.5 rounded bg-white/5 border border-white/10 font-mono text-[9px] text-slate-400 group-hover:border-amber-500/10 group-hover:text-slate-300 transition-colors"
+                >AI/LLM</span
+              >
+            </div>
+          </div>
+
+          <!-- Academic Block 2: Graduation -->
+          <div
+            class="group relative p-6 rounded-2xl border border-white/[0.03] bg-white/[0.02] backdrop-blur-md transition-all duration-300 hover:border-amber-500/20 hover:bg-white/[0.04]"
+          >
+            <div
+              class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-amber-500/5 to-transparent rounded-tr-2xl pointer-events-none transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+            ></div>
+
+            <div class="flex flex-wrap justify-between items-start gap-3 mb-4">
+              <div>
+                <div class="flex items-center gap-2 mb-1">
+                  <span
+                    class="px-2 py-0.5 rounded bg-white/5 text-slate-400 border border-white/10 font-mono text-[9px] font-semibold uppercase tracking-wider"
+                    >Bachelor's Degree</span
+                  >
+                </div>
+                <h3
+                  class="text-xl font-bold text-white font-sans tracking-wide group-hover:text-amber-400 transition-colors"
+                >
+                  Bachelor of Computer Science
+                </h3>
+                <p class="text-xs font-mono text-slate-400 mt-0.5">
+                  University of Lucknow
+                </p>
+              </div>
+              <span
+                class="px-3 py-1 rounded-full bg-white/5 border border-white/10 font-mono text-[10px] text-slate-400 font-medium tracking-wider"
+                >2021 - 2024</span
+              >
+            </div>
+
+            <p
+              class="text-xs md:text-sm text-slate-400 leading-relaxed font-sans mb-4"
+            >
+              Built a strong foundation in programming logic, algorithms,
+              object-oriented development, and database systems with consistent
+              exposure to modern web fundamentals.
+            </p>
+
+            <div class="flex flex-wrap gap-2 pt-1">
+              <span
+                class="px-2.5 py-0.5 rounded bg-white/5 border border-white/10 font-mono text-[9px] text-slate-400 group-hover:border-amber-500/10 group-hover:text-slate-300 transition-colors"
+                >OOPs (JAVA/C++)</span
+              >
+              <span
+                class="px-2.5 py-0.5 rounded bg-white/5 border border-white/10 font-mono text-[9px] text-slate-400 group-hover:border-amber-500/10 group-hover:text-slate-300 transition-colors"
+                >DATA STRUCTURES</span
+              >
+              <span
+                class="px-2.5 py-0.5 rounded bg-white/5 border border-white/10 font-mono text-[9px] text-slate-400 group-hover:border-amber-500/10 group-hover:text-slate-300 transition-colors"
+                >SQL PLATFORMS</span
+              >
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- --- CONTACT SECTION --- -->
-      <section
-        id="contact"
-        class="py-24 px-6 md:px-12 lg:px-20 max-w-5xl mx-auto border-t border-white/5 text-center"
+    <section
+      id="contact"
+      class="relative min-h-screen w-full px-6 py-24 md:px-16 flex flex-col justify-center bg-[#05020c] overflow-hidden border-t border-white/[0.02]"
+    >
+      <div
+        class="absolute inset-0 z-0 pointer-events-none opacity-40 mix-blend-screen"
       >
-        <div class="glass-card rounded-[2.5rem] p-12 space-y-8 relative overflow-hidden">
-          <div class="absolute -top-10 -right-10 w-48 h-48 bg-purple-500/10 rounded-full blur-[48px] pointer-events-none"></div>
-          
-          <div class="space-y-4 max-w-2xl mx-auto">
-            <h2 class="text-4xl md:text-5xl font-black tracking-tight">Let's build something beautiful.</h2>
-            <p class="text-base md:text-lg text-white/70">
-              Looking for a front-end developer to construct modern, responsive, high-fidelity user experiences? Send me a message!
+        <canvas id="contact-particle-canvas" class="w-full h-full"></canvas>
+      </div>
+
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] md:w-[700px] md:h-[700px] rounded-full blur-[150px] opacity-10 pointer-events-none bg-amber-500/20"
+      ></div>
+
+    <section 
+      id="contact" 
+      class="relative min-h-screen w-full px-6 py-24 md:px-16 flex flex-col justify-center bg-transparent overflow-hidden border-t border-white/[0.02]"
+    >
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] md:w-[700px] md:h-[700px] rounded-full blur-[150px] opacity-10 pointer-events-none bg-amber-500/20"></div>
+
+      <div class="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center relative z-10">
+        
+        <div class="lg:col-span-5 space-y-8 flex flex-col justify-center">
+          <div class="space-y-4">
+            <div class="flex items-center gap-3">
+              <span class="font-mono text-xs text-amber-500 uppercase tracking-[0.2em]">// Connection Protocol</span>
+              <div class="h-[1px] w-12 bg-amber-500/30"></div>
+            </div>
+            <h2 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white uppercase font-sans">
+              Get In Touch
+            </h2>
+            <p class="text-sm md:text-base text-slate-400 font-sans leading-relaxed tracking-wide">
+              Have an interesting project, a backend framework bottleneck, or a fullstack architecture that needs scaling? Drop a message, and let's engineer something memorable.
             </p>
           </div>
 
-          <div class="flex flex-wrap justify-center gap-4 pt-4">
-            <a
-              href="mailto:anurag@example.com"
-              class="px-8 py-4 rounded-full bg-white text-[#090514] font-bold shadow-lg hover:bg-white/90 hover:scale-[1.03] transition-all duration-300"
-            >
-              Get In Touch
-            </a>
-            <a
-              href="https://github.com"
-              target="_blank"
-              class="px-8 py-4 rounded-full border border-white/10 bg-white/5 font-semibold text-white hover:bg-white/10 transition-all duration-300"
-            >
-              GitHub Profile
-            </a>
+          <div class="space-y-4 font-mono text-[11px] tracking-wider text-slate-400">
+            <div class="flex items-center gap-3 group">
+              <span class="text-amber-500 font-bold">// LOCATION :</span>
+              <span class="text-slate-300 font-sans text-xs">Lucknow, UP, India</span>
+            </div>
+            <div class="flex items-center gap-3 group">
+              <span class="text-amber-500 font-bold">// AVAILABILITY :</span>
+              <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-sans text-[10px]">Open for Roles</span>
+            </div>
           </div>
         </div>
-      </section>
 
-      <!-- --- FOOTER --- -->
-      <footer class="py-8 px-6 text-center border-t border-white/5 text-white/40 text-xs">
-        <p>&copy; 2026 Anurag. All rights reserved. Designed with custom WebGL integrations.</p>
-      </footer>
-    </div>
+        <div class="lg:col-span-7">
+          <div class="w-full p-8 md:p-10 rounded-2xl border border-white/[0.04] bg-white/[0.01] backdrop-blur-xl shadow-2xl transition-all duration-500 hover:border-amber-500/10">
+            
+            <form id="portfolio-contact-form" class="space-y-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                  <label class="block font-mono text-[10px] text-slate-400 uppercase tracking-widest" for="form-name">Sender Name</label>
+                  <input type="text" id="form-name" required placeholder="John Doe" 
+                    class="w-full px-4 py-3 rounded-xl bg-white/[0.02] border border-white/10 text-white font-sans text-sm tracking-wide transition-all duration-300 placeholder-slate-600 focus:outline-none focus:border-amber-500/40 focus:bg-white/[0.04] focus:ring-1 focus:ring-amber-500/20" />
+                </div>
+                <div class="space-y-2">
+                  <label class="block font-mono text-[10px] text-slate-400 uppercase tracking-widest" for="form-email">Routing Email</label>
+                  <input type="email" id="form-email" required placeholder="john@example.com" 
+                    class="w-full px-4 py-3 rounded-xl bg-white/[0.02] border border-white/10 text-white font-sans text-sm tracking-wide transition-all duration-300 placeholder-slate-600 focus:outline-none focus:border-amber-500/40 focus:bg-white/[0.04] focus:ring-1 focus:ring-amber-500/20" />
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <label class="block font-mono text-[10px] text-slate-400 uppercase tracking-widest" for="form-subject">Subject Transmission</label>
+                <input type="text" id="form-subject" required placeholder="Architecture Design / Freelance Opportunity" 
+                  class="w-full px-4 py-3 rounded-xl bg-white/[0.02] border border-white/10 text-white font-sans text-sm tracking-wide transition-all duration-300 placeholder-slate-600 focus:outline-none focus:border-amber-500/40 focus:bg-white/[0.04] focus:ring-1 focus:ring-amber-500/20" />
+              </div>
+
+              <div class="space-y-2">
+                <label class="block font-mono text-[10px] text-slate-400 uppercase tracking-widest" for="form-message">Payload Message</label>
+                <textarea id="form-message" required rows="5" placeholder="Describe the scope, stack details, or project ideas..." 
+                  class="w-full px-4 py-3 rounded-xl bg-white/[0.02] border border-white/10 text-white font-sans text-sm tracking-wide transition-all duration-300 placeholder-slate-600 focus:outline-none focus:border-amber-500/40 focus:bg-white/[0.04] focus:ring-1 focus:ring-amber-500/20 resize-none"></textarea>
+              </div>
+
+              <button type="submit" 
+                class="w-full py-4 rounded-xl bg-amber-500 text-slate-950 font-mono text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 hover:bg-amber-400 hover:shadow-[0_0_25px_rgba(245,158,11,0.4)] active:scale-[0.99]">
+                Dispatch Message
+              </button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <script>
+      // Ensure you have imported Three.js via script tag or npm:
+
+      (function initContactBackground() {
+        const canvas = document.getElementById("contact-particle-canvas");
+        if (!canvas) return;
+
+        const scene = new THREE.Scene();
+
+        // Camera Setup
+        const camera = new THREE.PerspectiveCamera(
+          60,
+          window.innerWidth / window.innerHeight,
+          0.1,
+          100,
+        );
+        camera.position.z = 30;
+
+        const renderer = new THREE.WebGLRenderer({
+          canvas: canvas,
+          alpha: true,
+          antialias: true,
+        });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        // Geometry: Create a cloud of particles
+        const count = 750;
+        const positions = new Float32Array(count * 3);
+
+        for (let i = 0; i < count * 3; i += 3) {
+          // Distribute randomly in a spherical volume cluster
+          const u = Math.random();
+          const v = Math.random();
+          const theta = u * 2.0 * Math.PI;
+          const phi = Math.acos(2.0 * v - 1.0);
+          const r = Math.cbrt(Math.random()) * 25; // cluster radius
+
+          positions[i] = r * Math.sin(phi) * Math.cos(theta);
+          positions[i + 1] = r * Math.sin(phi) * Math.sin(theta);
+          positions[i + 2] = r * Math.cos(phi);
+        }
+
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute(
+          "position",
+          new THREE.BufferAttribute(positions, 3),
+        );
+
+        // Material: Styled using Amber color theme accents
+        const material = new THREE.PointsMaterial({
+          size: 0.18,
+          color: new THREE.Color("#f59e0b"), // Tailwind amber-500
+          transparent: true,
+          opacity: 0.6,
+          blending: THREE.AdditiveBlending,
+          depthWrite: false,
+        });
+
+        // Mesh creation
+        const particlePoints = new THREE.Points(geometry, material);
+        scene.add(particlePoints);
+
+        // Mouse interactivity mechanics
+        let mouseX = 0;
+        let mouseY = 0;
+        let targetX = 0;
+        let targetY = 0;
+
+        window.addEventListener("mousemove", (event) => {
+          // Normalise coordinates to range [-1, 1]
+          mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+          mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        // Handle Resize configurations smoothly
+        window.addEventListener("resize", () => {
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Continuous Animation Frame loop
+        const clock = new THREE.Clock();
+
+        function animate() {
+          requestAnimationFrame(animate);
+
+          const elapsedTime = clock.getElapsedTime();
+
+          // Constant slow orbital drift
+          particlePoints.rotation.y = elapsedTime * 0.03;
+          particlePoints.rotation.x = elapsedTime * 0.015;
+
+          // Fluid interpolation easing for cursor interaction
+          targetX += (mouseX - targetX) * 0.05;
+          targetY += (mouseY - targetY) * 0.05;
+
+          // Transform camera angle minutely around tracking targets
+          camera.position.x = targetX * 4;
+          camera.position.y = targetY * 4;
+          camera.lookAt(scene.position);
+
+          renderer.render(scene, camera);
+        }
+
+        animate();
+      })();
+    </script>
 
     <!-- --- JAVASCRIPT BOOT --- -->
   </body>

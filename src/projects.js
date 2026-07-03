@@ -9,7 +9,7 @@ const projects = [
     tags: ['React.js', 'Node.js'],
     techStack: 'React.js / Node.js / Express.js / MongoDB',
     year: 'Apr 2026',
-    image: 'AuthX.png',
+    image: '/AuthX.png',
     color: '#0d9488', 
     glowClass: 'bg-teal-500/30',
     btnClass: 'bg-teal-500 shadow-[0_0_30px_rgba(20,184,166,0.25)] text-black',
@@ -35,7 +35,7 @@ const projects = [
     tags: ['Node.js', 'Express.js'],
     techStack: 'Node.js / Express.js / MongoDB / Google Maps API',
     year: 'Apr 2025',
-    image: 'NiftelInfra.png',
+    image: '/NiftelInfra.png',
     color: '#f97316', // Orange
     glowClass: 'bg-orange-500/30',
     btnClass: 'bg-orange-500 shadow-[0_0_30px_rgba(249,115,22,0.25)] text-white',
@@ -48,7 +48,7 @@ const projects = [
     tags: ['Node.js', 'Tailwind CSS'],
     techStack: 'Node.js / Express.js / MongoDB / Tailwind CSS',
     year: 'Nov 2025',
-    image: 'EternalFlames.png',
+    image: '/EternalFlames.png',
     color: '#8b5cf6', // Purple
     glowClass: 'bg-purple-500/30',
     btnClass: 'bg-purple-500 shadow-[0_0_30px_rgba(139,92,246,0.25)] text-white',
