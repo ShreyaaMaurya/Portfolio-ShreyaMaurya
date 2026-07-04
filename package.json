@@ -5,8 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "chmod +x node_modules/.bin/vite && vite build",
-    "preview": "vite preview"
+    "dev:api": "node server/index.js",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "node server/index.js"
   },
   "engines": {
     "node": "22.x"
@@ -16,6 +18,9 @@
   "license": "ISC",
   "dependencies": {
     "autoprefixer": "^10.5.2",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "pg": "^8.22.0",
     "postcss": "^8.5.16",
     "tailwindcss": "^3.4.19",
     "three": "^0.185.1",

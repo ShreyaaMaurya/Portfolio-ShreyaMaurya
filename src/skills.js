@@ -420,9 +420,9 @@ export const initInteractiveSkills = () => {
 
   // Scene setup
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
-  camera.position.set(0, 0.28, 4.05);
-  camera.lookAt(0, -0.1, 0);
+  const camera = new THREE.PerspectiveCamera(42, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+  camera.position.set(0, 0.22, 5.15);
+  camera.lookAt(0, -0.08, 0);
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
   renderer.setSize(canvas.clientWidth, canvas.clientHeight);
@@ -445,8 +445,8 @@ export const initInteractiveSkills = () => {
   const ringGroup = new THREE.Group();
   scene.add(ringGroup);
 
-  const badgeRadius = 2.28; // Keep badges closer so the ring reads at a glance
-  const tiltX = Math.PI / 7.2; // Slightly flatter tilt to prevent badge overlaps
+  const badgeRadius = 1.82;
+  const tiltX = Math.PI / 5.8;
   const badgeMeshes = [];
 
   skills.forEach((skill, index) => {
@@ -708,14 +708,14 @@ export const initInteractiveSkills = () => {
       
       // Ellipse equation matching the horizontal tilt
       badge.position.x = Math.cos(angle) * badgeRadius;
-      badge.position.y = Math.sin(angle) * badgeRadius * Math.sin(tiltX) - 0.65; // Pushed down to clear the center model
+      badge.position.y = Math.sin(angle) * badgeRadius * Math.sin(tiltX) - 0.42;
       badge.position.z = Math.sin(angle) * badgeRadius * Math.cos(tiltX);
 
       // Billboarding (badge faces camera)
       badge.quaternion.copy(camera.quaternion);
 
       // Hover scale expansion LERP
-      const targetScale = (hoveredIndex === index) ? 1.42 : 1.0;
+      const targetScale = (hoveredIndex === index) ? 1.24 : 1.0;
       badge.scale.x += (targetScale - badge.scale.x) * 0.16;
       badge.scale.y += (targetScale - badge.scale.y) * 0.16;
       badge.scale.z += (targetScale - badge.scale.z) * 0.16;

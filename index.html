@@ -69,6 +69,21 @@
   </style>
 
   <body class="bg-[#090514] text-white overflow-x-hidden antialiased">
+  
+        <div class="space-y-3">
+          <p class="font-mono text-[10px] uppercase tracking-[0.45em] text-teal-300">
+            Initializing Portfolio
+          </p>
+          <div class="h-[2px] w-64 max-w-[70vw] overflow-hidden rounded-full bg-white/10">
+            <div class="loader-progress h-full rounded-full bg-gradient-to-r from-teal-300 via-cyan-400 to-purple-400"></div>
+          </div>
+          <p class="font-mono text-[10px] uppercase tracking-[0.26em] text-slate-500">
+            Full Stack Developer // AI Engineer
+          </p>
+        </div>
+      </div>
+    </div>
+
     <!-- --- STORYTELLER DRAWER OVERLAY (Enhanced) --- -->
     <div
       id="story-drawer"
@@ -582,7 +597,7 @@
         >
           <div
             id="skills-3d-wrapper"
-            class="w-full h-[560px] md:h-[700px] relative flex flex-col justify-between items-center rounded-[2rem] border border-white/5 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.05),rgba(255,255,255,0.02)_40%,rgba(8,6,20,0.92)_100%)] backdrop-blur-xl shadow-[0_30px_80px_-25px_rgba(0,0,0,0.85)] p-3 md:p-4 overflow-hidden"
+            class="w-full h-[540px] md:h-[640px] relative flex flex-col justify-between items-center rounded-[2rem] border border-white/5 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.05),rgba(255,255,255,0.02)_40%,rgba(8,6,20,0.92)_100%)] backdrop-blur-xl shadow-[0_30px_80px_-25px_rgba(0,0,0,0.85)] p-3 md:p-4 overflow-hidden"
           >
             <div
               class="absolute inset-0 pointer-events-none opacity-[0.35] bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:36px_36px]"
@@ -596,13 +611,13 @@
             <!-- 3D Canvas element -->
             <canvas
               id="canvas-skills-interactive"
-              class="w-full h-[76%] block cursor-grab active:cursor-grabbing rounded-[1.75rem] bg-black/20 border border-white/5"
+              class="w-full h-[68%] block cursor-grab active:cursor-grabbing rounded-[1.75rem] bg-black/20 border border-white/5"
             ></canvas>
 
             <!-- Active Skill details overlay (aligned perfectly in the center-bottom under the active model) -->
             <div
               id="skills-text-overlay"
-              class="w-full text-center px-4 flex flex-col items-center justify-center h-[24%] transition-all duration-500 transform opacity-100 translate-y-0 rounded-[1.5rem] border border-white/[0.04] bg-black/25 backdrop-blur-md"
+              class="w-full text-center px-4 flex flex-col items-center justify-center h-[32%] transition-all duration-500 transform opacity-100 translate-y-0 rounded-[1.5rem] border border-white/[0.04] bg-black/25 backdrop-blur-md"
             >
               <h3
                 id="active-skill-name"
@@ -1020,7 +1035,7 @@
               </div>
               <span
                 class="px-3 py-1 rounded-full bg-white/5 border border-white/10 font-mono text-[10px] text-slate-300 font-medium tracking-wider"
-                >Expected 2026</span
+                >2024-2026</span
               >
             </div>
 
@@ -1121,12 +1136,6 @@
         class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] md:w-[700px] md:h-[700px] rounded-full blur-[150px] opacity-10 pointer-events-none bg-amber-500/20"
       ></div>
 
-    <section 
-      id="contact" 
-      class="relative min-h-screen w-full px-6 py-24 md:px-16 flex flex-col justify-center bg-transparent overflow-hidden border-t border-white/[0.02]"
-    >
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] md:w-[700px] md:h-[700px] rounded-full blur-[150px] opacity-10 pointer-events-none bg-amber-500/20"></div>
-
       <div class="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center relative z-10">
         
         <div class="lg:col-span-5 space-y-8 flex flex-col justify-center">
@@ -1188,6 +1197,11 @@
                 class="w-full py-4 rounded-xl bg-amber-500 text-slate-950 font-mono text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 hover:bg-amber-400 hover:shadow-[0_0_25px_rgba(245,158,11,0.4)] active:scale-[0.99]">
                 Dispatch Message
               </button>
+              <p
+                id="contact-form-status"
+                class="min-h-5 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500"
+                aria-live="polite"
+              ></p>
             </form>
           </div>
         </div>

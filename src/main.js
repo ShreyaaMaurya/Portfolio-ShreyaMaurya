@@ -73,6 +73,115 @@ if (drawer && video) {
 
 const resizeCallbacks = [];
 
+const initSectionRevealAnimations = () => {
+    const revealTargets = new Set();
+    const sectionSelectors = [
+        'section',
+        'header',
+        '#skills-3d-wrapper',
+        '#project-info-panel',
+        '#project-action-panel',
+        '#portfolio-contact-form'
+    ];
+    const itemSelectors = [
+        'h1',
+        'h2',
+        'h3',
+        'p',
+        'a',
+        'button',
+        'form',
+        'canvas',
+        '.glass-card',
+        '.rounded-2xl',
+        '.rounded-3xl',
+        '[class*="grid"] > div',
+        '[class*="space-y"] > div'
+    ];
+
+    document.querySelectorAll(sectionSelectors.join(',')).forEach((section) => {
+        revealTargets.add(section);
+        section.querySelectorAll(itemSelectors.join(',')).forEach((item) => revealTargets.add(item));
+    });
+
+    revealTargets.forEach((target, index) => {
+        target.classList.add('reveal-on-scroll');
+        target.style.setProperty('--reveal-delay', `${Math.min(index % 8, 7) * 55}ms`);
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -8% 0px'
+    });
+
+    revealTargets.forEach((target) => revealObserver.observe(target));
+};
+
+const initContactForm = () => {
+    const form = document.getElementById('portfolio-contact-form');
+    if (!form) return;
+
+    const status = document.getElementById('contact-form-status');
+    const submitButton = form.querySelector('button[type="submit"]');
+
+    const setStatus = (message, state = 'default') => {
+        if (!status) return;
+
+        status.textContent = message;
+        status.classList.remove('text-slate-500', 'text-emerald-400', 'text-red-400');
+        status.classList.add(
+            state === 'success' ? 'text-emerald-400' : state === 'error' ? 'text-red-400' : 'text-slate-500'
+        );
+    };
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const payload = {
+            name: form.querySelector('#form-name')?.value,
+            email: form.querySelector('#form-email')?.value,
+            subject: form.querySelector('#form-subject')?.value,
+            message: form.querySelector('#form-message')?.value
+        };
+
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
+        }
+        setStatus('Saving message...', 'default');
+
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const result = await response.json().catch(() => ({}));
+
+            if (!response.ok) {
+                throw new Error(result.error || 'Message could not be sent.');
+            }
+
+            form.reset();
+            setStatus('Message saved successfully.', 'success');
+        } catch (error) {
+            setStatus(error.message || 'Message could not be sent.', 'error');
+        } finally {
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Dispatch Message';
+            }
+        }
+    });
+};
+
 const observeCanvas = (canvasElement, renderCallback) => {
     let isVisible = false;
     const observer = new IntersectionObserver((entries) => {
@@ -301,6 +410,8 @@ window.addEventListener('resize', () => {
     resizeCallbacks.forEach(cb => cb());
 });
 
+initSectionRevealAnimations();
+initContactForm();
 initHeroHelix();
 initSkillsOrbit();
 initAuthXScanner();

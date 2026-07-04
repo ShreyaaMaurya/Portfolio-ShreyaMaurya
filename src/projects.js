@@ -480,7 +480,7 @@ export const initInteractiveProjects = () => {
 
     if (linkBtn) {
       linkBtn.href = projects[index].link;
-      linkBtn.className = `skill-transition px-8 py-3 rounded-full text-xs font-bold tracking-widest uppercase hover:scale-105 active:scale-95 transition-all duration-300 ${projects[index].btnClass}`;
+      linkBtn.className = `skill-transition inline-flex items-center justify-center gap-2 w-fit shrink-0 whitespace-nowrap overflow-hidden px-6 py-3 rounded-full text-[11px] font-bold tracking-widest uppercase hover:scale-105 active:scale-95 transition-all duration-300 ${projects[index].btnClass}`;
     }
   };
 

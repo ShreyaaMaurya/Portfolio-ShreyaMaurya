@@ -28,6 +28,17 @@
   }
 }
 
+* {
+  box-sizing: border-box;
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
 @keyframes float {
   0%, 100% {
     transform: translateY(0px) rotate(0deg);
@@ -46,6 +57,42 @@
     opacity: 0.85;
     transform: scale(1.05);
   }
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 34px, 0) scale(0.985);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translate3d(0, 34px, 0) scale(0.985);
+  filter: blur(10px);
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
+}
+
+.reveal-on-scroll.is-visible canvas,
+.reveal-on-scroll.is-visible img {
+  animation: reveal-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .animate-float {
@@ -78,6 +125,10 @@ html {
   scroll-behavior: smooth;
 }
 
+body {
+  min-width: 320px;
+}
+
 /* Fades marquee edges for a professional cinematic overlay */
 .mask-gradient-edges {
   mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
@@ -108,4 +159,194 @@ html {
               0 0 40px -10px rgba(245, 158, 11, 0.15) !important;
 }
 
-
+#project-link-btn {
+  line-height: 1;
+}
+
+#project-link-btn svg {
+  flex: 0 0 auto;
+}
+
+@media (max-width: 1024px) {
+  section {
+    min-height: auto;
+  }
+
+  section[id] {
+    scroll-margin-top: 88px;
+  }
+
+  #hero-profile {
+    min-height: 100svh;
+  }
+
+  #work {
+    height: 300vh !important;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  #story-drawer h1,
+  #hero-profile h1 {
+    overflow-wrap: anywhere;
+  }
+
+  #hero-profile {
+    padding-top: 7rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  #hero-profile .max-w-5xl {
+    align-items: center;
+    text-align: center;
+  }
+
+  #hero-profile .flex-wrap {
+    justify-content: center;
+  }
+
+  #about,
+  #experience,
+  #education,
+  #contact {
+    padding-top: 4.5rem !important;
+    padding-bottom: 4.5rem !important;
+  }
+
+  #skills-3d-wrapper {
+    height: clamp(520px, 118vw, 640px) !important;
+  }
+
+  #canvas-skills-interactive {
+    min-height: 350px;
+  }
+
+  #work {
+    height: 270vh !important;
+  }
+
+  #work .sticky {
+    padding-top: 5rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  #canvas-projects-3d {
+    min-height: 44vh;
+  }
+
+  #project-info-panel {
+    max-width: min(100%, 34rem);
+  }
+
+  #contact .grid {
+    gap: 2.5rem;
+  }
+
+  input,
+  textarea,
+  button {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mask-gradient-edges {
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  #story-drawer .absolute.inset-0 {
+    padding: 1.25rem !important;
+  }
+
+  #story-drawer h2 {
+    letter-spacing: 0.08em !important;
+  }
+
+  #hero-profile h1 {
+    font-size: clamp(2.2rem, 13vw, 3.6rem) !important;
+    line-height: 1.02 !important;
+  }
+
+  #hero-profile h1 span.block {
+    font-size: clamp(1.65rem, 9vw, 2.5rem) !important;
+  }
+
+  #about h2,
+  #work h2,
+  #experience h2,
+  #education h2,
+  #contact h2 {
+    font-size: clamp(2.4rem, 13vw, 3.4rem) !important;
+    line-height: 1;
+  }
+
+  #skills-chip-rail button {
+    flex: 1 1 calc(50% - 0.75rem);
+    justify-content: center;
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+    font-size: 0.65rem !important;
+  }
+
+  #skills-3d-wrapper {
+    border-radius: 1.25rem !important;
+    padding: 0.75rem !important;
+  }
+
+  #skills-text-overlay {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  #active-skill-name {
+    font-size: clamp(1.5rem, 8vw, 2.2rem) !important;
+  }
+
+  #project-title {
+    font-size: clamp(1.6rem, 8vw, 2.2rem) !important;
+  }
+
+  #project-link-btn,
+  #skills-action-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  #experience .ml-12 {
+    margin-left: 2rem !important;
+  }
+
+  #education .flex-wrap,
+  #experience .flex-wrap {
+    align-items: flex-start;
+  }
+
+  #contact form {
+    padding: 1.25rem !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .reveal-on-scroll {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+
