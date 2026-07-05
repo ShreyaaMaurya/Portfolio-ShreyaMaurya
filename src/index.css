@@ -214,16 +214,16 @@ body {
   #experience,
   #education,
   #contact {
-    padding-top: 4.5rem !important;
-    padding-bottom: 4.5rem !important;
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
   }
 
   #skills-3d-wrapper {
-    height: clamp(520px, 118vw, 640px) !important;
+    height: clamp(460px, 104vw, 580px) !important;
   }
 
   #canvas-skills-interactive {
-    min-height: 350px;
+    min-height: 280px;
   }
 
   #work {
@@ -295,17 +295,29 @@ body {
   }
 
   #skills-3d-wrapper {
+    height: clamp(420px, 112vw, 500px) !important;
     border-radius: 1.25rem !important;
-    padding: 0.75rem !important;
+    padding: 0.65rem !important;
+  }
+
+  #canvas-skills-interactive {
+    height: 58% !important;
+    min-height: 240px;
   }
 
   #skills-text-overlay {
-    padding-left: 0.75rem !important;
-    padding-right: 0.75rem !important;
+    height: 42% !important;
+    padding-left: 0.7rem !important;
+    padding-right: 0.7rem !important;
   }
 
   #active-skill-name {
     font-size: clamp(1.5rem, 8vw, 2.2rem) !important;
+  }
+
+  #skills-text-overlay p {
+    font-size: 0.72rem !important;
+    line-height: 1.45 !important;
   }
 
   #project-title {
