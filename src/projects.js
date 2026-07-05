@@ -9,7 +9,7 @@ const projects = [
     tags: ['React.js', 'Claude API'],
     techStack: 'React.js / Express.js / Claude API',
     year: 'Mar 2026',
-    image: 'ebill.png',
+    image: '/ebill.png',
     color: '#10b981',
     glowClass: 'bg-emerald-500/30',
     btnClass: 'bg-emerald-500 shadow-[0_0_30px_rgba(16,185,129,0.25)] text-black',
